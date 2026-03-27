@@ -1,3 +1,11 @@
+const senhaCorreta = "1234";
+
+let senha = prompt("Digite a senha:");
+
+if(senha !== senhaCorreta){
+document.body.innerHTML = "<h1>Acesso negado</h1>";
+throw new Error("Sem acesso");
+}
 let rotas = JSON.parse(localStorage.getItem("rotas")) || [];
 
 function salvar(){
