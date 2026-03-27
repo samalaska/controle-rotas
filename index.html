@@ -2,88 +2,95 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Logístico</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Controle de Rotas</title>
+
+<script type="module">
+import { setup } from "https://cdn.skypack.dev/twind";
+setup();
+</script>
+
 </head>
 
-<body>
+<body class="flex bg-gray-100 font-sans">
 
-<div class="layout">
+<!-- SIDEBAR -->
+<aside class="w-60 h-screen bg-gray-900 text-white p-4">
 
-<!-- MENU -->
-<aside class="sidebar">
-<h2>🚚 Sistema de Samuel Bizarro</h2>
+<h1 class="text-xl font-bold mb-6">🚚 Rotas</h1>
 
-<button onclick="mostrarAba('dashboard')">📊 Dashboard</button>
-<button onclick="mostrarAba('rotas')">📦 Rotas</button>
-<button onclick="mostrarAba('prazos')">⏱ Prazos</button>
+<button onclick="mostrarAba('rotas')" class="block mb-3">Rotas</button>
+<button onclick="mostrarAba('prazos')" class="block mb-3">Prazos</button>
+<button onclick="mostrarAba('dashboard')" class="block">Dashboard</button>
 
 </aside>
 
-<main>
-
-<!-- DASHBOARD -->
-<section id="aba-dashboard">
-
-<h1>Resumo Geral</h1>
-
-<div class="cards">
-
-<div class="cardDash">
-<h3>📦 Em Rota</h3>
-<p id="dashEmRota">0</p>
-</div>
-
-<div class="cardDash amarelo">
-<h3>🟡 Vencendo</h3>
-<p id="dashVencendo">0</p>
-</div>
-
-<div class="cardDash vermelho">
-<h3>🔴 Atrasadas</h3>
-<p id="dashAtrasadas">0</p>
-</div>
-
-<div class="cardDash verde">
-<h3>✅ Recebidas Hoje</h3>
-<p id="dashHoje">0</p>
-</div>
-
-</div>
-
-<h2>⚠️ Rotas com Problema</h2>
-<div id="alertasRotas"></div>
-
-</section>
-
+<!-- CONTEÚDO -->
+<main class="flex-1 p-6">
 
 <!-- ROTAS -->
-<section id="aba-rotas" style="display:none">
+<section id="rotas">
 
-<h1>Controle de Rotas</h1>
+<h2 class="text-2xl font-bold mb-4">Cadastrar Rota</h2>
 
-<div class="card">
-<input id="rotaInput" placeholder="Nome da rota">
-<button onclick="criarRota()">Adicionar Rota</button>
-</div>
+<input id="rotaInput" placeholder="Nome da rota"
+class="border p-2 rounded">
 
-<div id="rotas"></div>
+<button onclick="addRota()"
+class="bg-blue-600 text-white px-4 py-2 rounded ml-2">
+Adicionar
+</button>
+
+<input id="pesquisa"
+oninput="render()"
+placeholder="🔎 Pesquisar rota ou NF..."
+class="border p-2 rounded w-full mt-4">
+
+<div id="listaRotas" class="mt-6"></div>
 
 </section>
 
-
 <!-- PRAZOS -->
-<section id="aba-prazos" style="display:none">
+<section id="prazos" class="hidden">
+<h2 class="text-2xl font-bold mb-4">Prazos</h2>
+<div id="listaPrazos"></div>
+</section>
 
-<h1>Prazos das Notas</h1>
-<div id="painelPrazos"></div>
+<!-- DASHBOARD -->
+<section id="dashboard" class="hidden">
+
+<h2 class="text-2xl font-bold mb-6">Dashboard</h2>
+
+<div class="grid grid-cols-2 gap-4">
+
+<div class="bg-white p-4 rounded shadow">
+Total Rotas
+<h3 id="totalRotas" class="text-2xl font-bold"></h3>
+</div>
+
+<div class="bg-white p-4 rounded shadow">
+Pendentes
+<h3 id="pendentes" class="text-2xl font-bold"></h3>
+</div>
+
+<div class="bg-white p-4 rounded shadow">
+Atrasadas
+<h3 id="atrasadas" class="text-2xl font-bold"></h3>
+</div>
+
+<div class="bg-white p-4 rounded shadow">
+Recebidas Hoje
+<h3 id="recebidasHoje" class="text-2xl font-bold"></h3>
+</div>
+
+</div>
 
 </section>
 
 </main>
-</div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
